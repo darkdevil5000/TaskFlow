@@ -1,0 +1,1 @@
+const router = require('express').Router(); const User = require('../models/User'); const auth = require('../middleware/auth'); router.get('/', auth, async (req, res, next) => { try { res.json(await User.find({ _id: { $ne: req.user._id } }).select('name email').sort({ name: 1 })); } catch(e) { next(e); } }); module.exports = router;
